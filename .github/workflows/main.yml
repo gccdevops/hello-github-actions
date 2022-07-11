@@ -2,7 +2,7 @@ name: A workflow for my Hello World file
 on: push
 
 jobs:
-  build:
+  job_001:
     name: Hello world action
     runs-on: ubuntu-latest
     steps:
@@ -10,3 +10,18 @@ jobs:
       - uses: ./action-a
         with:
           MY_NAME: "Mona"
+  job_002:
+    name: Build image action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+          IMAGE_NAME: "github-action-demo-image"
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+          IMAGE_TAG=(date +%s)
+          docker build -t $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG -f action-b/Dockerfile 
+          docker push  $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
