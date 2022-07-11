@@ -15,13 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: docker login
+      - name: build and push docker image
         env:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
           IMAGE_NAME: "github-action-demo-image"
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-          IMAGE_TAG=(date +%s)
+          IMAGE_TAG=$(date +%s)
           docker build -t $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG -f action-b/Dockerfile 
           docker push  $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
