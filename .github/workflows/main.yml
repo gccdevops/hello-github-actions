@@ -27,5 +27,5 @@ jobs:
           echo $DOCKER_USER
           echo $DOCKER_PASSWORD
           echo $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
-          docker build -t $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG -f action-b/Dockerfile
-          docker push  $DOCKER_USER/$IMAGE_NAME:$IMAGE_TAG
+          docker build -t chaoqiao/$IMAGE_NAME:$IMAGE_TAG -f action-b/Dockerfile
+          docker push  chaoqiao/$IMAGE_NAME:$IMAGE_TAG
